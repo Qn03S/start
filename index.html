@@ -258,7 +258,7 @@ svg.ic{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.7;str
 .lw{position:relative;display:inline-block}
 .uline{position:absolute;left:0;right:0;bottom:-.23em;height:.06em;border-radius:99px;background:var(--lime);box-shadow:0 0 14px var(--lime);transform:scaleX(0);transform-origin:left}
 .on .uline{animation:strk 1s 1.5s cubic-bezier(.5,0,.2,1) forwards}
-.lflag{display:inline-block;margin-left:.03em;vertical-align:-.13em;width:.22em;height:.3em;overflow:visible;fill:none;stroke:var(--lime);stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 10px var(--lime))}
+.lflag{position:absolute;left:calc(100% + .03em);bottom:.016em;width:.22em;height:.3em;overflow:visible;fill:none;stroke:var(--lime);stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 10px var(--lime))}
 .lflag .pole,.lflag .tri,.lflag .ldot{transform-box:fill-box}
 .lflag .pole{transform:scaleY(0);transform-origin:bottom}
 .lflag .tri{fill:var(--lime);transform:scaleX(0);transform-origin:left}
@@ -327,7 +327,7 @@ svg.ic{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.7;str
   <div class="orb"><i class="rip"></i><i class="rip" style="animation-delay:2.9s"></i>
     <svg viewBox="0 0 200 200"><circle class="draw" cx="100" cy="100" r="92"/></svg></div>
   <div class="tag a">SOPT 39기 기획 · 인터뷰 6건</div>
-  <h1 class="a logo" style="--d:.1"><span class="lw">margino<i class="uline"></i></span><svg class="lflag" viewBox="0 0 24 32"><path class="pole" d="M6 2v29"/><path class="tri" d="M6 2l14 5L6 12z"/><circle class="ldot" cx="6" cy="25" r="6"/></svg></h1>
+  <h1 class="a logo" style="--d:.1"><span class="lw">margino<i class="uline"></i><svg class="lflag" viewBox="0 0 24 32"><path class="pole" d="M6 2v29"/><path class="tri" d="M6 2l14 5L6 12z"/><circle class="ldot" cx="6" cy="25" r="6"/></svg></span></h1>
   <p class="a dim mono" style="--d:.3">더 나은 시작</p>
 </section>
 

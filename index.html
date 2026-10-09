@@ -1,0 +1,504 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>start! · 사용자 인터뷰 발표</title>
+<style>
+:root{
+  --bg:#07090f; --ink:#e9edf6; --dim:#8b93a7; --faint:#566074;
+  --glass:rgba(255,255,255,.055); --edge:rgba(255,255,255,.11);
+  --lime:#a6ff4d; --cyan:#3ee6ff; --violet:#8b7bff; --amber:#ffb547; --red:#ff6b8b;
+  --mono:ui-monospace,"SF Mono",Menlo,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Noto Sans KR",sans-serif;
+  -webkit-font-smoothing:antialiased;word-break:keep-all;user-select:none}
+.bgglow{position:fixed;inset:-20%;pointer-events:none;
+  background:radial-gradient(40% 35% at 20% 20%,#8b7bff22,transparent 70%),
+             radial-gradient(35% 30% at 85% 75%,#a6ff4d18,transparent 70%),
+             radial-gradient(30% 30% at 70% 15%,#3ee6ff14,transparent 70%);
+  animation:drift 18s ease-in-out infinite alternate}
+@keyframes drift{to{transform:translate(3%,-2%) scale(1.05)}}
+
+#track{position:relative;display:flex;height:100%;transition:transform .7s cubic-bezier(.7,0,.2,1)}
+.slide{flex:0 0 100vw;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 6vw;text-align:center;gap:34px}
+
+.tag{font:600 12px/1 var(--mono);letter-spacing:.16em;color:var(--lime);padding:7px 12px;border:1px solid #a6ff4d44;border-radius:99px;background:#a6ff4d0f}
+h1{font-size:clamp(48px,9vw,110px);font-weight:800;letter-spacing:-.04em;line-height:1}
+h2{font-size:clamp(26px,4vw,46px);font-weight:800;letter-spacing:-.025em;line-height:1.25}
+.lime{color:var(--lime)} .red{color:var(--red)} .dim{color:var(--dim)} .cyan{color:var(--cyan)}
+.mono{font-family:var(--mono)}
+.glass{background:var(--glass);border:1px solid var(--edge);border-radius:22px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+svg.ic{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+
+/* 등장 애니메이션: .on 이 붙을 때마다 다시 재생 */
+.a{opacity:0;transform:translateY(18px)}
+.on .a{animation:up .7s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:calc(var(--d,0)*1s)}
+@keyframes up{to{opacity:1;transform:none}}
+
+/* 의자 */
+.seat{display:flex;flex-direction:column;align-items:center;gap:10px}
+.chair{width:76px;height:76px;border-radius:20px;border:1px solid var(--edge);display:grid;place-items:center;color:var(--faint);background:var(--glass)}
+.chair svg{width:40px;height:40px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round}
+.chair svg .fillp{fill:currentColor;fill-opacity:.12}
+.on .chair.lit{animation:sit .5s forwards;animation-delay:calc(var(--d,0)*1s)}
+@keyframes sit{to{color:var(--lime);border-color:var(--lime);background:#a6ff4d1a;box-shadow:0 0 28px #a6ff4d55,inset 0 0 14px #a6ff4d22;transform:translateY(-5px)}}
+.row{display:flex;gap:18px;justify-content:center;align-items:flex-end;flex-wrap:wrap}
+.cap{font-size:13px;color:var(--faint);font-family:var(--mono)}
+
+/* 1. 처음 아이디어 */
+.clockbig{font:700 clamp(54px,8vw,92px)/1 var(--mono);color:var(--ink);letter-spacing:-.02em}
+.ring{display:inline-grid;place-items:center;width:60px;height:60px;border-radius:50%;color:var(--amber);border:1px solid #ffb54755}
+.on .ring{animation:ringb .9s .3s 3}
+@keyframes ringb{0%,100%{transform:rotate(0)}20%{transform:rotate(-14deg)}40%{transform:rotate(12deg)}60%{transform:rotate(-8deg)}80%{transform:rotate(5deg)}}
+.bubble{position:relative;padding:8px 14px;border-radius:12px;font-size:14px;background:#ffb5471a;border:1px solid #ffb54755;color:var(--amber);white-space:nowrap}
+.legend{display:flex;gap:26px;justify-content:center;flex-wrap:wrap;font-size:15px;color:var(--dim)}
+.legend span{display:inline-flex;gap:8px;align-items:center}
+
+/* 2. 대상 */
+.ppl{display:grid;grid-template-columns:repeat(6,auto);gap:22px;justify-content:center}
+@media(max-width:700px){.ppl{grid-template-columns:repeat(3,auto)}}
+.person{display:flex;flex-direction:column;align-items:center;gap:10px;font-size:14px;color:var(--dim)}
+.avatar{width:70px;height:70px;border-radius:50%;display:grid;place-items:center;background:var(--glass);border:1px solid var(--edge);color:var(--cyan)}
+.avatar svg{width:34px;height:34px}
+.gap{display:flex;align-items:center;gap:20px;padding:22px 30px}
+.gap .t{font:700 clamp(30px,4.5vw,48px)/1 var(--mono)}
+.gap .mid{display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--red)}
+.gap .mid svg{width:30px;height:30px}
+.dash{width:clamp(80px,16vw,200px);height:2px;background:repeating-linear-gradient(90deg,var(--red) 0 8px,transparent 8px 14px)}
+
+/* 3. 타임라인 */
+.tl{width:min(860px,100%);padding:30px 32px}
+.tl-top{display:flex;justify-content:space-between;font:600 14px var(--mono);color:var(--dim);margin-bottom:14px}
+.bar{position:relative;height:30px;border-radius:99px;background:rgba(255,255,255,.06);overflow:hidden}
+.bar i{position:absolute;top:0;bottom:0;left:0;width:0}
+.bar .waste{background:repeating-linear-gradient(-45deg,#ff6b8b66 0 10px,#ff6b8b22 10px 20px)}
+.bar .work{left:76%;background:var(--lime);box-shadow:0 0 22px #a6ff4d99}
+.on .bar .waste{animation:w1 1.8s .5s forwards}
+.on .bar .work{animation:w2 .7s 2.4s forwards}
+@keyframes w1{to{width:76%}} @keyframes w2{to{width:24%}}
+.tl-icons{display:flex;justify-content:space-between;margin-top:16px;color:var(--dim);font-size:14px}
+.tl-icons span{display:inline-flex;align-items:center;gap:8px}
+.big-q{font-size:clamp(20px,2.6vw,28px);font-weight:700;line-height:1.5}
+.big-q small{display:block;font-size:14px;font-weight:500;color:var(--faint);margin-top:6px}
+
+/* 4. 인사이트 3개 */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;width:min(1040px,100%)}
+@media(max-width:800px){.cards{grid-template-columns:1fr;gap:12px}.cards .viz{height:90px!important}}
+.card{padding:26px 22px;display:flex;flex-direction:column;align-items:center;gap:16px}
+.card .viz{height:130px;display:grid;place-items:center;width:100%}
+.card h3{font-size:19px;line-height:1.4}
+.card .q{font-size:14px;color:var(--dim);line-height:1.55}
+.donut{width:120px;height:120px;transform:rotate(-90deg)}
+.donut circle{fill:none;stroke-width:12}
+.donut .bg{stroke:rgba(255,255,255,.08)}
+.donut .fg{stroke:var(--red);stroke-linecap:round;stroke-dasharray:0 302}
+.on .donut .fg{animation:dn 1.4s .8s forwards}
+@keyframes dn{to{stroke-dasharray:201 302}}
+.donut-wrap{position:relative;display:grid;place-items:center}
+.donut-wrap b{position:absolute;font:700 26px var(--mono)}
+.vs{display:flex;align-items:center;gap:16px}
+.vs .o{width:66px;height:66px;border-radius:50%;display:grid;place-items:center;border:1px solid}
+.vs .o svg{width:32px;height:32px}
+.vs .bad{color:var(--red);border-color:#ff6b8b55;background:#ff6b8b12}
+.vs .good{color:var(--lime);border-color:#a6ff4d66;background:#a6ff4d12}
+.on .vs .good{animation:pulse 1.6s 1.2s infinite}
+@keyframes pulse{50%{box-shadow:0 0 26px #a6ff4d77}}
+.split{display:flex;gap:10px;align-items:flex-end;height:110px}
+.split .col{width:46px;border-radius:10px 10px 4px 4px;height:0}
+.split .c1{background:var(--lime);box-shadow:0 0 16px #a6ff4d66}
+.split .c2{background:#ff6b8b55}
+.on .split .c1{animation:h1 1s .7s forwards} .on .split .c2{animation:h2 1s .9s forwards}
+@keyframes h1{to{height:105px}} @keyframes h2{to{height:22px}}
+.split-l{display:flex;gap:10px;font-size:12px;color:var(--faint);margin-top:6px}
+.split-l span{width:46px;text-align:center}
+
+/* 5. 기능 */
+.flow{display:flex;align-items:stretch;gap:14px;width:min(1060px,100%)}
+@media(max-width:800px){.flow{flex-direction:column;gap:10px}}
+.st{flex:1;padding:24px 20px;display:flex;flex-direction:column;align-items:center;gap:14px}
+.st .n{font:700 12px var(--mono);color:var(--faint);letter-spacing:.14em}
+.st h3{font-size:19px}
+.arrow{display:grid;place-items:center;color:var(--faint)}
+@media(max-width:800px){.arrow{transform:rotate(90deg)}}
+.calc{display:flex;flex-direction:column;align-items:center;gap:4px;font-family:var(--mono)}
+.calc .from{font-size:15px;color:var(--dim)}
+.calc .minus{font-size:13px;color:var(--red)}
+.calc .res{font-size:44px;font-weight:800;color:var(--lime);text-shadow:0 0 22px #a6ff4d88}
+.chk{display:flex;flex-direction:column;gap:8px;width:100%;max-width:220px}
+.chk div{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:12px;font-size:14px;background:rgba(0,0,0,.3);color:var(--faint);text-align:left}
+.chk .box{width:18px;height:18px;border-radius:6px;border:1.5px solid currentColor;display:grid;place-items:center;flex:0 0 auto}
+.chk .box svg{width:12px;height:12px;stroke-width:3;opacity:0}
+.on .chk div{animation:ck .4s forwards;animation-delay:calc(var(--d)*1s)}
+.on .chk div svg{animation:op .3s forwards;animation-delay:calc(var(--d)*1s)}
+@keyframes ck{to{color:var(--ink);background:#a6ff4d14}} @keyframes op{to{opacity:1;stroke:var(--lime)}}
+.mini .chair{width:52px;height:52px;border-radius:14px}
+.mini .chair svg{width:28px;height:28px}
+.mini{gap:10px}
+.state{font:600 12px var(--mono);color:var(--faint)}
+.dial{display:flex;gap:6px;padding:6px;border-radius:99px;position:relative}
+.dial span{position:relative;z-index:1;display:inline-flex;align-items:center;gap:8px;padding:10px 18px;font-size:15px;color:var(--dim);border-radius:99px}
+.dial span svg{width:18px;height:18px}
+.dial .knob{position:absolute;z-index:0;top:6px;bottom:6px;left:6px;width:calc((100% - 24px)/3);border-radius:99px;background:#a6ff4d1c;border:1px solid #a6ff4d66}
+.on .dial .knob{animation:slide 4.5s 1.5s ease-in-out infinite}
+@keyframes slide{0%,20%{transform:translateX(0)}33%,53%{transform:translateX(calc(100% + 6px))}66%,86%{transform:translateX(calc(200% + 12px))}100%{transform:translateX(0)}}
+
+/* 6. 다음 검증 */
+.days{display:grid;grid-template-columns:repeat(14,1fr);gap:6px;width:min(720px,100%)}
+.days i{aspect-ratio:1;border-radius:6px;background:rgba(255,255,255,.07)}
+.on .days i{animation:day .25s forwards;animation-delay:calc(var(--d)*1s)}
+@keyframes day{to{background:var(--lime);box-shadow:0 0 10px #a6ff4d66}}
+.days-l{display:flex;justify-content:space-between;width:min(720px,100%);font:600 13px var(--mono);color:var(--faint);margin-top:-22px}
+.groups{display:flex;gap:18px;align-items:center;flex-wrap:wrap;justify-content:center}
+.grp{padding:20px 26px;display:flex;flex-direction:column;align-items:center;gap:12px}
+.grp .pairs{display:flex;gap:18px}
+.grp .pair{display:flex;gap:4px}
+.dotc{width:16px;height:16px;border-radius:50%;background:var(--lime)}
+.dotc.v{background:var(--cyan)}
+.grp .scatter{display:flex;gap:14px}
+.vsx{font:700 18px var(--mono);color:var(--faint)}
+.gauges{display:flex;gap:40px;justify-content:center;flex-wrap:wrap}
+.gauge{display:flex;flex-direction:column;align-items:center;gap:10px;font-size:15px;color:var(--dim)}
+.gauge .fg{stroke:var(--lime)}
+.on .gauge .g60{animation:g60 1.4s .6s forwards} .on .gauge .g40{animation:g40 1.4s .8s forwards}
+@keyframes g60{to{stroke-dasharray:181 302}} @keyframes g40{to{stroke-dasharray:121 302}}
+.gauge .donut-wrap b{color:var(--lime)}
+
+
+/* 출발점 */
+.origin{display:flex;align-items:center;gap:26px;flex-wrap:wrap;justify-content:center}
+.cal{padding:18px;display:grid;grid-template-columns:repeat(7,18px);gap:6px;position:relative}
+.cal i{width:18px;height:18px;border-radius:5px;background:rgba(255,255,255,.07)}
+.cal i.f{background:#8b7bff66}
+.cal .strike{position:absolute;left:8%;right:8%;top:50%;height:3px;background:var(--red);border-radius:3px;transform:scaleX(0);transform-origin:left;box-shadow:0 0 12px #ff6b8b88}
+.on .cal .strike{animation:strk .6s 1.4s forwards}
+@keyframes strk{to{transform:scaleX(1)}}
+.eq{font:700 15px var(--mono);color:var(--dim);display:flex;flex-direction:column;align-items:center;gap:6px}
+.quote-s{font-size:clamp(17px,2vw,22px);color:var(--dim)}
+.quote-s b{color:var(--ink)}
+/* 인터뷰 설계 */
+.path{display:flex;align-items:center;gap:18px;flex-wrap:wrap;justify-content:center}
+.node{padding:16px 20px;display:flex;flex-direction:column;align-items:center;gap:8px;font-size:15px}
+.node .k{font:700 12px var(--mono);color:var(--faint);letter-spacing:.1em}
+.say{padding:8px 14px;border-radius:12px;font-size:14px;background:#3ee6ff12;border:1px solid #3ee6ff44;color:var(--cyan)}
+.qsteps{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;max-width:980px}
+.qsteps span{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:12px;font-size:14px;background:rgba(0,0,0,.3);border:1px solid transparent;color:var(--faint)}
+.qsteps span b{font:700 12px var(--mono)}
+.on .qsteps span{animation:lit2 .4s forwards;animation-delay:calc(var(--d)*1s)}
+@keyframes lit2{to{color:var(--ink);border-color:#a6ff4d55;background:#a6ff4d12}}
+.rules{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.rules span{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;font-size:15px}
+.rules svg{width:18px;height:18px;color:var(--lime)}
+/* 변화 */
+.ba{display:grid;grid-template-columns:1fr auto 1fr;gap:12px 22px;align-items:center;width:min(760px,100%)}
+.ba .b4{justify-self:end;color:var(--faint);font-size:clamp(15px,1.8vw,19px);position:relative}
+.ba .b4::after{content:"";position:absolute;left:-4px;right:-4px;top:52%;height:2px;background:var(--red);transform:scaleX(0);transform-origin:left}
+.on .ba .b4::after{animation:strk .4s forwards;animation-delay:calc(var(--d)*1s + .3s)}
+.ba .af{justify-self:start;font-weight:700;font-size:clamp(16px,2vw,21px);color:var(--lime)}
+.ba svg{color:var(--faint)}
+
+@media(max-width:800px){
+  .slide{gap:18px;padding:48px 5vw 84px;overflow-y:auto;justify-content:safe center}
+  .st{padding:14px 16px;gap:8px}.calc .res{font-size:32px}.card{padding:16px;gap:10px}
+  .flow .arrow{display:none}.mini .chair{width:42px;height:42px}
+}
+/* 조작부 */
+#nav{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:14px;z-index:5}
+#nav button.arr{width:40px;height:40px;border-radius:50%;border:1px solid var(--edge);background:var(--glass);color:var(--dim);cursor:pointer;display:grid;place-items:center}
+#nav button.arr:hover{color:var(--lime);border-color:#a6ff4d66}
+#dots{display:flex;gap:8px}
+#dots button{width:8px;height:8px;border-radius:9px;border:0;background:#ffffff2a;cursor:pointer;transition:all .3s;padding:0}
+#dots button.on{background:var(--lime);box-shadow:0 0 10px var(--lime);width:24px}
+#prog{position:fixed;top:0;left:0;height:3px;width:0;background:var(--lime);box-shadow:0 0 10px var(--lime);z-index:5;transition:width .6s}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01s!important;animation-delay:0s!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="bgglow"></div>
+<div id="prog"></div>
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 1 1 12 0v5l1.5 2h-15z"/><path d="M10 20.5a2 2 0 0 0 4 0"/></symbol>
+  <symbol id="i-bell-x" viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 0 1 9.5-4.9M18 11v5l1.5 2H8"/><path d="M10 20.5a2 2 0 0 0 4 0"/><path d="M3 3l18 18"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M5 20.5c.8-3.8 3.6-6 7-6s6.2 2.2 7 6"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c.6-3.4 3-5.5 6-5.5s5.4 2.1 6 5.5"/><circle cx="17" cy="9" r="2.6"/><path d="M16.5 14.6c2.5.2 4 2 4.5 4.6"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><rect x="7" y="3" width="10" height="18" rx="2.2"/><path d="M11 18h2"/></symbol>
+  <symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 21V4M5 4h11l-2 4 2 4H5"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-walk" viewBox="0 0 24 24"><circle cx="8" cy="4.5" r="1.7"/><path d="M5 21l1.6-5 2.4 2V21M4 12l2-3.5h3.2l1.6 3"/><circle cx="16.5" cy="4.5" r="1.7"/><path d="M13.5 21l1.6-5 2.4 2V21M12.5 12l2-3.5h3.2l1.6 3"/></symbol>
+  <symbol id="i-go" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-back" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M19 14.5A7.5 7.5 0 1 1 9.5 5a6 6 0 0 0 9.5 9.5z"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5L18 18M6 18l2.5-2.5M15.5 8.5L18 6"/></symbol>
+  <symbol id="i-fire" viewBox="0 0 24 24"><path d="M12 21c-3.9 0-6.5-2.6-6.5-6.2 0-3.3 2.4-5.4 3.6-8.3.6 2 1.8 3 2.9 3.3C12 6.6 13.4 4.4 15.5 3c-.3 3 3 5.3 3 10 0 4.6-2.7 8-6.5 8z"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-steps" viewBox="0 0 24 24"><path d="M4 19h5v-5h5V9h6"/><path d="M17 6l3 3-3 3"/></symbol>
+</svg>
+
+<div id="track">
+
+<!-- 0 표지 -->
+<section class="slide">
+  <div class="tag a">SOPT 39기 기획 · 인터뷰 6건</div>
+  <h1 class="a" style="--d:.1">start<span class="lime">!</span></h1>
+  <div class="row a" style="--d:.2">
+    <div class="chair lit" style="--d:.6"></div><div class="chair lit" style="--d:1"></div>
+    <div class="chair lit" style="--d:1.4"></div><div class="chair lit" style="--d:1.8"></div>
+  </div>
+  <p class="a dim mono" style="--d:.3">마지노선 전에, 같이 출발 · 송서윤</p>
+</section>
+
+<!-- 출발점 -->
+<section class="slide">
+  <div class="tag a">01 · 출발점</div>
+  <h2 class="a" style="--d:.1">시작은 <span style="color:var(--violet)">일정 앱</span></h2>
+  <div class="origin a" style="--d:.3">
+    <div class="cal glass"><i></i><i></i><i class="f"></i><i class="f"></i><i></i><i></i><i></i><i></i><i class="f"></i><i></i><i class="f"></i><i class="f"></i><i></i><i></i><i></i><i></i><i class="f"></i><i class="f"></i><i></i><i></i><i></i><i></i><i></i><i class="f"></i><i class="f"></i><i class="f"></i><i></i><i></i><i></i><i></i><i class="f"></i><i></i><i></i><i></i><i></i><span class="strike"></span></div>
+    <div class="eq"><span>=</span><span>구글 캘린더</span></div>
+    <svg class="ic" style="width:30px;height:30px;color:var(--faint)"><use href="#i-go"/></svg>
+    <div class="seat"><div class="chair lit" style="--d:2.2"></div><span class="cap">"알림 누르면 앉기"만 남음</span></div>
+  </div>
+  <p class="quote-s a" style="--d:1.8">"내가 하나하나 만든 게 <b>구글 캘린더로 다 된다</b>"</p>
+</section>
+
+<!-- 1 처음 아이디어 -->
+<section class="slide">
+  <div class="tag a">01 · 처음 아이디어</div>
+  <h2 class="a" style="--d:.1">모르는 사람끼리, 정각에 같이 앉기</h2>
+  <div class="row a" style="--d:.2;gap:26px;align-items:center">
+    <span class="ring"><svg class="ic" style="width:30px;height:30px"><use href="#i-bell"/></svg></span>
+    <span class="clockbig">21:00</span>
+  </div>
+  <div class="row a" style="--d:.4">
+    <div class="seat"><div class="chair lit" style="--d:1"></div><span class="cap">낯선 사람 A</span></div>
+    <div class="seat"><div class="chair lit" style="--d:1.3"></div><span class="cap">낯선 사람 B</span></div>
+    <div class="seat"><div class="chair lit" style="--d:1.6"></div><span class="cap">낯선 사람 C</span></div>
+    <div class="seat"><span class="bubble a" style="--d:2.1">기다릴게요</span><div class="chair"></div><span class="cap">나</span></div>
+  </div>
+  <div class="legend a" style="--d:.6">
+    <span><svg class="ic" style="color:var(--amber)"><use href="#i-bell"/></svg>정각 알림</span>
+    <span><svg class="ic" style="color:var(--amber)"><use href="#i-clock"/></svg>안 앉으면 재촉</span>
+    <span><svg class="ic" style="color:var(--violet)"><use href="#i-users"/></svg>모르는 사람</span>
+  </div>
+</section>
+
+<!-- 인터뷰 설계 -->
+<section class="slide">
+  <div class="tag a">인터뷰 설계</div>
+  <h2 class="a" style="--d:.1">의견 말고, <span class="lime">지난 행동</span> 묻기</h2>
+  <div class="path a" style="--d:.3">
+    <div class="node glass"><span class="k">INTERVIEW 01</span>앱 보여주기<span class="say">"캘린더가 왜 필요한지 모르겠어요"</span></div>
+    <div class="eq"><svg class="ic" style="width:28px;height:28px"><use href="#i-go"/></svg><span style="font-size:12px">질문 다시 설계</span></div>
+    <div class="node glass"><span class="k">INTERVIEW 02–06</span>같은 질문 30개 · 앱은 안 보여줌</div>
+  </div>
+  <div class="qsteps a" style="--d:.6">
+    <span style="--d:1.0"><b>1</b>평소 계획</span><span style="--d:1.25"><b>2</b>최근 미룬 일</span>
+    <span style="--d:1.5"><b>3</b>결국 시작한 계기</span><span style="--d:1.75"><b>4</b>반복 패턴</span>
+    <span style="--d:2.0"><b>5</b>써 본 방법</span><span style="--d:2.25"><b>6</b>손해·비용</span>
+    <span style="--d:2.5"><b>7</b>가장 필요한 것</span>
+  </div>
+  <div class="rules a" style="--d:2.8">
+    <span class="glass"><svg class="ic"><use href="#i-check"/></svg>실제 있었던 일만</span>
+    <span class="glass"><svg class="ic"><use href="#i-check"/></svg>아이디어 먼저 말하지 않기</span>
+    <span class="glass"><svg class="ic"><use href="#i-check"/></svg>"좋다"는 증거가 아님</span>
+  </div>
+</section>
+
+<!-- 2 대상 -->
+<section class="slide">
+  <div class="tag a">02 · 대상</div>
+  <h2 class="a" style="--d:.1">스스로 정한 일을 미루는 20대</h2>
+  <div class="ppl">
+    <div class="person a" style="--d:.2"><div class="avatar"><svg class="ic"><use href="#i-user"/></svg></div>대학생</div>
+    <div class="person a" style="--d:.3"><div class="avatar"><svg class="ic"><use href="#i-user"/></svg></div>대학생</div>
+    <div class="person a" style="--d:.4"><div class="avatar"><svg class="ic"><use href="#i-user"/></svg></div>대학생</div>
+    <div class="person a" style="--d:.5"><div class="avatar"><svg class="ic"><use href="#i-user"/></svg></div>취준생</div>
+    <div class="person a" style="--d:.6"><div class="avatar"><svg class="ic"><use href="#i-user"/></svg></div>로스쿨생</div>
+    <div class="person a" style="--d:.7"><div class="avatar"><svg class="ic"><use href="#i-user"/></svg></div>직장인</div>
+  </div>
+  <div class="gap glass a" style="--d:.9">
+    <div><div class="t">15:00</div><div class="cap">하려던 시각</div></div>
+    <div class="mid"><svg class="ic"><use href="#i-phone"/></svg><div class="dash"></div><span class="cap" style="color:var(--red)">누워서 릴스</span></div>
+    <div><div class="t lime">18:30</div><div class="cap">실제로 앉은 시각</div></div>
+  </div>
+</section>
+
+<!-- 3 문제 -->
+<section class="slide">
+  <div class="tag a">03 · 문제</div>
+  <h2 class="a" style="--d:.1">마지노선이 오면 결국 하는 사람들</h2>
+  <div class="tl glass a" style="--d:.2">
+    <div class="tl-top"><span>계획한 시각</span><span class="lime">마지노선</span></div>
+    <div class="bar"><i class="waste"></i><i class="work"></i></div>
+    <div class="tl-icons">
+      <span class="red"><svg class="ic"><use href="#i-phone"/></svg>미루는 시간</span>
+      <span class="lime"><svg class="ic"><use href="#i-flag"/></svg>몰아서 하기</span>
+    </div>
+  </div>
+  <div class="big-q a" style="--d:2.9">"진짜 망했을 때 시작해요"<small>대학생</small></div>
+  <h2 class="a" style="--d:3.3;font-size:clamp(20px,2.8vw,30px)">문제는 <span class="lime">마지노선이 없는 일</span></h2>
+</section>
+
+<!-- 4 인사이트 -->
+<section class="slide">
+  <div class="tag a">03 · 인사이트</div>
+  <div class="cards">
+    <div class="card glass a" style="--d:.1">
+      <div class="viz">
+        <div><div class="split"><i class="col c1"></i><i class="col c2"></i></div>
+        <div class="split-l"><span>남의 마감</span><span>내 시작</span></div></div>
+      </div>
+      <h3>지키는 건 남이 정한 마감뿐</h3>
+      <p class="q">"시작은 늦추고 끝은 맞춰"</p>
+    </div>
+    <div class="card glass a" style="--d:.3">
+      <div class="viz">
+        <div class="donut-wrap">
+          <svg class="donut" viewBox="0 0 120 120"><circle class="bg" cx="60" cy="60" r="48"/><circle class="fg" cx="60" cy="60" r="48"/></svg>
+          <b class="red">4/6</b>
+        </div>
+      </div>
+      <h3>알람은 무시하거나 스트레스</h3>
+      <p class="q">"알람이면 무시할 것 같아"</p>
+    </div>
+    <div class="card glass a" style="--d:.5">
+      <div class="viz">
+        <div class="vs">
+          <span class="o bad"><svg class="ic"><use href="#i-eye"/></svg></span>
+          <span class="mono dim">vs</span>
+          <span class="o good"><svg class="ic"><use href="#i-walk"/></svg></span>
+        </div>
+      </div>
+      <h3>감시는 부담, 동행은 힘</h3>
+      <p class="q">"나 지금 가고 있는데 너 아직이니?<br>그럼 나간다고"</p>
+    </div>
+  </div>
+</section>
+
+<!-- 변화 -->
+<section class="slide">
+  <div class="tag a">인터뷰 후 변화</div>
+  <h2 class="a" style="--d:.1">무엇이 바뀌었나</h2>
+  <div class="ba">
+    <span class="b4 a" style="--d:0.30">일정 관리</span><svg class="ic a" style="--d:0.30"><use href="#i-go"/></svg><span class="af a" style="--d:0.45">시작 하나만</span>
+    <span class="b4 a" style="--d:0.65">모르는 사람</span><svg class="ic a" style="--d:0.65"><use href="#i-go"/></svg><span class="af a" style="--d:0.80">아는 사람과 같이</span>
+    <span class="b4 a" style="--d:1.00">정각 알람</span><svg class="ic a" style="--d:1.00"><use href="#i-go"/></svg><span class="af a" style="--d:1.15">친구가 움직일 때만</span>
+    <span class="b4 a" style="--d:1.35">안 앉으면 재촉</span><svg class="ic a" style="--d:1.35"><use href="#i-go"/></svg><span class="af a" style="--d:1.50">"나 출발했어"</span>
+    <span class="b4 a" style="--d:1.70">정해 둔 시각</span><svg class="ic a" style="--d:1.70"><use href="#i-go"/></svg><span class="af a" style="--d:1.85">진짜 마지노선</span>
+  </div>
+</section>
+
+<!-- 5 기능 -->
+<section class="slide">
+  <div class="tag a">04 · 기능 제안</div>
+  <h2 class="a" style="--d:.1">지켜보는 앱이 아니라, <span class="lime">같이 가는 앱</span></h2>
+  <div class="flow">
+    <div class="st glass a" style="--d:.3">
+      <span class="n">01</span><h3>진짜 마지노선</h3>
+      <div class="calc">
+        <span class="from">마감 22:00</span>
+        <span class="minus">− 예상 2시간 × 2배</span>
+        <span class="minus">− 평소 40분 늦게 앉음</span>
+        <span class="res a" style="--d:1.2">17:20</span>
+      </div>
+    </div>
+    <div class="arrow a" style="--d:.5"><svg class="ic"><use href="#i-go"/></svg></div>
+    <div class="st glass a" style="--d:.6">
+      <span class="n">02</span><h3>첫 한 걸음</h3>
+      <div class="chk">
+        <div style="--d:1.6"><span class="box"><svg class="ic"><use href="#i-check"/></svg></span>책상 앞으로</div>
+        <div style="--d:2"><span class="box"><svg class="ic"><use href="#i-check"/></svg></span>파일 열기</div>
+        <div style="--d:2.4"><span class="box"><svg class="ic"><use href="#i-check"/></svg></span>5분만 앉기</div>
+      </div>
+    </div>
+    <div class="arrow a" style="--d:.8"><svg class="ic"><use href="#i-go"/></svg></div>
+    <div class="st glass a" style="--d:.9">
+      <span class="n">03</span><h3>같이 출발</h3>
+      <div class="row mini">
+        <div class="seat"><div class="chair lit" style="--d:2.8"></div><span class="state">출발</span></div>
+        <div class="seat"><div class="chair lit" style="--d:3.2"></div><span class="state">앉음</span></div>
+        <div class="seat"><div class="chair lit" style="--d:3.6"></div><span class="state">끝</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="dial glass a" style="--d:1.2">
+    <i class="knob"></i>
+    <span><svg class="ic" style="color:var(--cyan)"><use href="#i-moon"/></svg>조용히</span>
+    <span><svg class="ic" style="color:var(--violet)"><use href="#i-spark"/></svg>당근</span>
+    <span><svg class="ic" style="color:var(--amber)"><use href="#i-fire"/></svg>쪼아줘</span>
+  </div>
+</section>
+
+<!-- 6 다음 검증 -->
+<section class="slide">
+  <div class="tag a">05 · 다음 검증</div>
+  <h2 class="a" style="--d:.1">카톡으로 2주 먼저 해 보기</h2>
+  <div class="days a" style="--d:.2" id="days"></div>
+  <div class="days-l a" style="--d:.2"><span>10/13</span><span>10/26</span></div>
+  <div class="groups a" style="--d:.4">
+    <div class="grp glass">
+      <div class="pairs"><span class="pair"><i class="dotc"></i><i class="dotc"></i></span><span class="pair"><i class="dotc"></i><i class="dotc"></i></span><span class="pair"><i class="dotc"></i><i class="dotc"></i></span></div>
+      <span class="cap">친구 짝</span>
+    </div>
+    <span class="vsx">vs</span>
+    <div class="grp glass">
+      <div class="scatter"><i class="dotc v"></i><i class="dotc v"></i><i class="dotc v"></i><i class="dotc v"></i><i class="dotc v"></i></div>
+      <span class="cap">모르는 사람</span>
+    </div>
+  </div>
+  <div class="gauges a" style="--d:.5">
+    <div class="gauge">
+      <div class="donut-wrap"><svg class="donut" viewBox="0 0 120 120"><circle class="bg" cx="60" cy="60" r="48"/><circle class="fg g60" cx="60" cy="60" r="48"/></svg><b>60%</b></div>
+      제때 앉았나
+    </div>
+    <div class="gauge">
+      <div class="donut-wrap"><svg class="donut" viewBox="0 0 120 120"><circle class="bg" cx="60" cy="60" r="48"/><circle class="fg g40" cx="60" cy="60" r="48"/></svg><b>40%</b></div>
+      2주차에도 쓰나
+    </div>
+  </div>
+</section>
+
+</div>
+
+<nav id="nav">
+  <button class="arr" id="prev" aria-label="이전"><svg class="ic"><use href="#i-back"/></svg></button>
+  <div id="dots"></div>
+  <button class="arr" id="next" aria-label="다음"><svg class="ic"><use href="#i-go"/></svg></button>
+</nav>
+
+<script>
+const CHAIR='<svg viewBox="0 0 24 24"><path class="fillp" d="M7.5 3h9a1.5 1.5 0 0 1 1.5 1.5V12H6V4.5A1.5 1.5 0 0 1 7.5 3z"/><path class="fillp" d="M4.5 12h15a1 1 0 0 1 1 1v1.5a1 1 0 0 1-1 1h-15a1 1 0 0 1-1-1V13a1 1 0 0 1 1-1z"/><path d="M6 15.5V21M18 15.5V21M9 7h6"/></svg>';
+document.querySelectorAll('.chair').forEach(c=>c.innerHTML=CHAIR);
+const days=document.getElementById('days');
+for(let i=0;i<14;i++){const d=document.createElement('i');d.style.setProperty('--d',(0.8+i*.12).toFixed(2));days.appendChild(d)}
+
+const track=document.getElementById('track'),slides=[...document.querySelectorAll('.slide')];
+const dots=document.getElementById('dots'),prog=document.getElementById('prog');
+slides.forEach((s,i)=>{const b=document.createElement('button');b.ariaLabel=(i+1)+'번';b.onclick=()=>go(i);dots.appendChild(b)});
+let cur=-1;
+function go(i){
+  i=Math.max(0,Math.min(slides.length-1,i)); if(i===cur)return;
+  if(cur>=0)slides[cur].classList.remove('on');
+  cur=i; track.style.transform=`translateX(${-i*100}vw)`;
+  void slides[i].offsetWidth; slides[i].classList.add('on');
+  [...dots.children].forEach((d,k)=>d.classList.toggle('on',k===i));
+  prog.style.width=(i/(slides.length-1)*100)+'%';
+}
+document.getElementById('prev').onclick=()=>go(cur-1);
+document.getElementById('next').onclick=()=>go(cur+1);
+addEventListener('keydown',e=>{
+  if(['ArrowRight','ArrowDown','PageDown',' ','Enter'].includes(e.key)){e.preventDefault();go(cur+1)}
+  if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();go(cur-1)}
+});
+let sx=null;
+addEventListener('touchstart',e=>sx=e.touches[0].clientX,{passive:true});
+addEventListener('touchend',e=>{if(sx===null)return;const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>50)go(cur+(dx<0?1:-1));sx=null});
+let wl=0;
+addEventListener('wheel',e=>{const now=Date.now();if(now-wl<800)return;const v=Math.abs(e.deltaX)>Math.abs(e.deltaY)?e.deltaX:e.deltaY;if(Math.abs(v)<20)return;wl=now;go(cur+(v>0?1:-1))},{passive:true});
+go(0);
+</script>
+</body>
+</html>

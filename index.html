@@ -248,11 +248,8 @@ svg.ic{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.7;str
 .rw-line{position:absolute;left:0;right:0;top:20px;height:2px;border-radius:2px;background:rgba(255,255,255,.14);transform:scaleX(0);transform-origin:left}
 .on .rw-line{animation:strk .7s 1.9s forwards}
 .rw-trail{position:absolute;left:0;top:20px;height:2px;width:0;border-radius:2px;background:var(--lime);box-shadow:0 0 10px var(--lime)}
-.rw-dot{position:absolute;left:0;top:15px;width:12px;height:12px;border-radius:50%;background:var(--lime);box-shadow:0 0 14px var(--lime);opacity:0}
 .on .rw-trail{animation:trail 1.3s 2.5s cubic-bezier(.3,.7,.2,1) forwards}
-.on .rw-dot{animation:roll 1.3s 2.5s cubic-bezier(.3,.7,.2,1) forwards,fout .3s 3.7s forwards}
-@keyframes trail{to{width:calc(100% - 4px)}}
-@keyframes roll{0%{opacity:1;left:0}100%{opacity:1;left:calc(100% - 12px)}}
+@keyframes trail{to{width:100%}}
 /* 고친 방향 카드 */
 .pv{display:flex;align-items:center;gap:22px;flex-wrap:wrap;justify-content:center}
 .pv-card{width:270px;min-height:170px;padding:22px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px}
@@ -329,7 +326,7 @@ svg.ic{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.7;str
   <div class="tag a">SOPT 39기 기획 · 인터뷰 6건</div>
   <h1 class="a logo" style="--d:.1">margino<span class="bang">.</span></h1>
   <div class="runway a" style="--d:.2">
-    <i class="rw-line"></i><i class="rw-trail"></i><i class="rw-dot"></i>
+    <i class="rw-line"></i><i class="rw-trail"></i>
     <svg class="rw-flag" viewBox="0 0 24 24"><path d="M6 3v19"/><path class="tri" d="M6 3l13 4.5L6 12z"/></svg>
   </div>
   <p class="a dim mono" style="--d:.3">더 나은 시작</p>
